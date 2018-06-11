@@ -1,2 +1,3 @@
 source_me
 templates/producer-ingress.yaml
+*.swp

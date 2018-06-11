@@ -8,7 +8,7 @@
   - Must have the kubectl, and kubeless clients installed for your OS and architecture
   - Must have UNIX environment
   - Must have configured an Nginx ingress controller and backend for the cluster
-  
+  - Must have NodeJS v8 or higher on your client machine
   
 ### Config
   ##### The configurations are in a file *source_me*. To create your own *source_me* config file, copy the example source me file and change the values to your configs.
@@ -22,8 +22,10 @@
   cp templates/producer-ingress.yaml.example templates/producer-ingress.yaml
    ```
    Next you must open the ingress file `vim templates/producer-ingress.yaml` and edit to change the *host* property to your host with producer being the subdomain. E.G. *producer.example.com*
+   
+  ### The configurations for the client ate client/insertPost.js must be configured with YOUR host. Simply open the file and change the host property to your hostname
   
-  ##### Once you have the file copied, open it and change the configurations as needed.
+  ##### Once you have finished configuring the files, open *source_me* and change the configurations as needed.
     - `KUBECONFIG` is the path to your kubeconfig file which contains the details for kubectl to connect to your cluster
     - `RBAC` can be set to *true*, *false*, or *openshift* depending on the configuration of your cluster
     - `KAFKA_TOPIC` is the name of the topic you want to create and or push/pull from in your cluster
@@ -43,6 +45,12 @@
   ```
   
   Here you will see all pods deployed (and some still being deployed)
+  
+  ##### Once pods have finished deploying, you can test with the client.
+  ```bash
+   cd client
+   node insertPost.js
+  ```
   
 ### Cleanup/Undo
   If you have already deployed, you can clean it all up with this:

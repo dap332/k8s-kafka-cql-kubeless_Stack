@@ -1,0 +1,30 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-05-22T11:41:01Z
+    labels:
+      app: producer-svc
+    name: producer-svc
+    namespace: producer
+    resourceVersion: "3252309"
+    selfLink: /api/v1/namespaces/producer/services/producer-svc
+    uid: 00a5bc01-5db5-11e8-9dee-321eccd845ab
+  spec:
+    clusterIP: 100.65.194.108
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: producer
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

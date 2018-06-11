@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cassandra-job
+  namespace: cassandra
+spec:
+  activeDeadlineSeconds: 900
+  template:
+    metadata:
+      name: cassandra-job
+    spec:
+      containers:
+      - name: cassandra
+        image: cassandra:3
+        command: ["bin/sh", "-c", "while nodetool -h cassandra-0.cassandra.cassandra.svc.cluster.local status 2>&1 | grep -q \"UnknownHostException\" ; do sleep 30; done && /usr/bin/cqlsh cassandra-0.cassandra.cassandra.svc.cluster.local 9042 -e \"CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true\"; "]
+      restartPolicy: OnFailure

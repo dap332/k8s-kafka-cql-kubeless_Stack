@@ -1,0 +1,22 @@
+{
+  "name": "news",
+  "version": "1.0.0",
+  "description": "Load lots pf news titles into a Cassandra db",
+  "main": "insert.js",
+  "dependencies": {
+    "async": "^2.6.0",
+    "cassandra-driver": "^3.4.1",
+    "kafka-node": "^2.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cassandra",
+    "clusterdb",
+    "nodejs"
+  ],
+  "author": "Dhruv Patel",
+  "license": "ISC"
+}

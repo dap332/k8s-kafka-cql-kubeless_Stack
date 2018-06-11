@@ -1,0 +1,6 @@
+KUBECONFIG=~/my/path/to/kubeconfg
+RBAC=true
+KAFKA_TOPIC="whatever-topic-you-want"
+HOST="example.com"
+CASSANDRA_CLUSTER_SIZE=3
+

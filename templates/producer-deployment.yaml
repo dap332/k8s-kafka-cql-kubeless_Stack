@@ -1,0 +1,69 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: 2018-05-22T11:03:13Z
+    generation: 1
+    labels:
+      app: producer
+    name: producer
+    namespace: producer
+    resourceVersion: "3247237"
+    selfLink: /apis/extensions/v1beta1/namespaces/producer/deployments/producer
+    uid: b88f54b3-5daf-11e8-9dee-321eccd845ab
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: producer
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: producer
+      spec:
+        containers:
+        - image: dp215/consumerapi:latest
+          imagePullPolicy: IfNotPresent
+          name: consumerapi
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: 2018-05-22T11:03:13Z
+      lastUpdateTime: 2018-05-22T11:03:13Z
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: 2018-05-22T11:03:13Z
+      lastUpdateTime: 2018-05-22T11:03:20Z
+      message: ReplicaSet "producer-68f84d64c9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

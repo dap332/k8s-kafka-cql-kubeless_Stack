@@ -1,0 +1,27 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    creationTimestamp: 2018-05-22T11:56:30Z
+    generation: 1
+    name: producer-ingress
+    namespace: producer
+    resourceVersion: "3252868"
+    selfLink: /apis/extensions/v1beta1/namespaces/producer/ingresses/producer-ingress
+    uid: 2a3b371b-5db7-11e8-9dee-321eccd845ab
+  spec:
+    rules:
+    - host: producer.<Insert host here> 
+      http:
+        paths:
+        - backend:
+            serviceName: producer-svc
+            servicePort: 80
+          path: /
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

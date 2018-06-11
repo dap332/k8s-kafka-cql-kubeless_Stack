@@ -16,6 +16,12 @@
   ```bash
   cp source_me.example ./source_me
   ```
+  ##### The configurations for the ingress are in the templates/producer-ingress.yaml.example but must be configured with YOUR host.
+  You can fo that with the following command.
+  ```bash
+  cp templates/producer-ingress.yaml.example templates/producer-ingress.yaml
+   ```
+   Next you must open the ingress file `vim templates/producer-ingress.yaml` and edit to change the *host* property to your host with producer being the subdomain. E.G. *producer.example.com*
   
   ##### Once you have the file copied, open it and change the configurations as needed.
     - `KUBECONFIG` is the path to your kubeconfig file which contains the details for kubectl to connect to your cluster

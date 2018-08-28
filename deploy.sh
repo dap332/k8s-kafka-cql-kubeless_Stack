@@ -31,7 +31,7 @@ kubectl create ns kubeless
 #Let's download the Custom Resource Definition
 kubectl create -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless-$kubeless_version.yaml
 
-kubectl create -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml
+kubectl create -f https://github.com/kubeless/kafka-trigger/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml
 
 #We  won't attempt to do an 'kubeless' commands until the all the kubeless CRD's are installed
 count=$(kubectl get crd | grep -c "kubeless.io")

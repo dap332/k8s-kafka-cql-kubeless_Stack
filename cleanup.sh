@@ -22,7 +22,7 @@ kubeless --namespace cql trigger http delete drop-trigger
 kubeless --namespace cql trigger kafka delete insert-trigger
 kubectl delete -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless-$kubeless_version.yaml
 
-kubectl delete -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml
+kubectl delete -f https://github.com/kubeless/kafka-trigger/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml
 
 kubectl delete namespace producer
 

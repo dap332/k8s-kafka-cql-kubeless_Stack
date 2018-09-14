@@ -28,10 +28,12 @@ kubectl create ns cql
 
 kubectl create ns kubeless
 
+kubectl create ns sentiment
+
 #Let's download the Custom Resource Definition
 kubectl create -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless-$kubeless_version.yaml
 
-kubectl create -f https://github.com/kubeless/kafka-trigger/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml
+kubectl create -f https://github.com/kubeless/kafka-trigger/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml --validate=false
 
 #We  won't attempt to do an 'kubeless' commands until the all the kubeless CRD's are installed
 count=$(kubectl get crd | grep -c "kubeless.io")
@@ -50,12 +52,14 @@ kubeless function deploy dropcql --runtime nodejs8 --handler cql.drop --from-fil
 
 kubeless function deploy insertcql --runtime nodejs8 --handler cql.insert --from-file src/cql.js --dependencies src/package.json --namespace cql
 
+kubeless function deploy predict --runtime nodejs8 --handler sentiment.predict --from-file src/sentiment.js --namespace sentiment
+
 echo "deploying resources: Service, Deployment, and Ingress..."
 
 kubectl -n producer apply -f $(pwd)/templates/producer-deployment.yaml
 kubectl -n producer apply -f $(pwd)/templates/producer-svc.yaml
 kubectl -n producer apply -f $(pwd)/templates/producer-ingress.yaml
-
+kubectl -n sentiment apply -f $(pwd)/templates/sentiment-deploy.yaml
 
 #Cassandra
 
@@ -68,7 +72,7 @@ kubectl apply -f $(pwd)/templates/cassandra-job.yaml
 
 # Kubeless Triggers
 
-kubeless trigger kafka create insert-trigger --function-selector function=insertcql --trigger-topic $KAFKA_TOPIC --namespace cql
+kubeless trigger kafka create predict-trigger --function-selector function=predict --trigger-topic $KAFKA_TOPIC --namespace sentiment
  
 kubeless trigger http create create-trigger --function-name createcql --hostname "create.$HOST" --namespace cql
 

@@ -16,10 +16,18 @@ else
         kubeless_version="openshift-$RELEASE"
 fi
 
+
+kubectl delete function -n cql insertcql
+kubectl delete function -n cql createcql
+kubectl delete function -n cql dropcql
+
+kubectl delete function -n sentiment predict
+
 kubeless --namespace cql trigger http delete create-trigger
 kubeless --namespace cql trigger http delete drop-trigger
 
-kubeless --namespace cql trigger kafka delete insert-trigger
+kubeless --namespace sentiment trigger kafka delete predict-trigger
+
 kubectl delete -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless-$kubeless_version.yaml
 
 kubectl delete -f https://github.com/kubeless/kafka-trigger/releases/download/$RELEASE/kafka-zookeeper-$RELEASE.yaml
@@ -29,6 +37,8 @@ kubectl delete namespace producer
 kubectl delete ns kubeless
 
 kubectl delete ns cql
+
+kubectl delete ns sentiment
 
 helm delete --purge "cassandra"
 

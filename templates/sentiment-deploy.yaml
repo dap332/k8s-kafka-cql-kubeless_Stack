@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 5
+  labels:
+    app: sentiment-api
+  name: sentiment-api
+  namespace: sentiment
+  resourceVersion: "19000659"
+  selfLink: /apis/extensions/v1beta1/namespaces/sentiment/deployments/sentiment-api
+  uid: 89e296d8-9b1e-11e8-9a46-7e5f30d205b0
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: sentiment-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sentiment-api
+    spec:
+      containers:
+      - image: dp215/sentiment-api:latest
+        imagePullPolicy: Always
+        name: sentiment-api
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

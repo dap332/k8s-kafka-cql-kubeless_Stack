@@ -1,0 +1,61 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-09-14T14:15:08Z
+    labels:
+      created-by: kubeless
+      function: predict
+    name: predict
+    namespace: sentiment
+    ownerReferences:
+    - apiVersion: kubeless.io/v1beta1
+      kind: Function
+      name: predict
+      uid: 95cd36e0-b828-11e8-b9d2-f68c72f12384
+    resourceVersion: "21084864"
+    selfLink: /api/v1/namespaces/sentiment/services/predict
+    uid: 95d11667-b828-11e8-b9d2-f68c72f12384
+  spec:
+    clusterIP: 100.64.244.248
+    ports:
+    - name: http-function-port
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      created-by: kubeless
+      function: predict
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: 2018-09-14T18:33:25Z
+    labels:
+      app: sentiment-svc
+    name: sentiment-svc
+    namespace: sentiment
+    resourceVersion: "21135309"
+    selfLink: /api/v1/namespaces/sentiment/services/sentiment-svc
+    uid: aa9a21fb-b84c-11e8-b9d2-f68c72f12384
+  spec:
+    clusterIP: 100.65.116.40
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 5000
+    selector:
+      app: sentiment-api
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

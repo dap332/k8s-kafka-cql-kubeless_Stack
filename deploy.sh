@@ -60,6 +60,7 @@ kubectl -n producer apply -f $(pwd)/templates/producer-deployment.yaml
 kubectl -n producer apply -f $(pwd)/templates/producer-svc.yaml
 kubectl -n producer apply -f $(pwd)/templates/producer-ingress.yaml
 kubectl -n sentiment apply -f $(pwd)/templates/sentiment-deploy.yaml
+kubectl -n sentiment apply -f $(pwd)/templates/sentiment-svc.yaml
 
 #Cassandra
 

@@ -23,7 +23,7 @@
    ```
    Next you must open the ingress file `vim templates/producer-ingress.yaml` and edit to change the *host* property to your host with producer being the subdomain. E.G. *producer.example.com*
    
-  ### The configurations for the client ate client/insertPost.js must be configured with YOUR host. Simply open the file and change the host property to your hostname
+  ### The configurations for the client at client/insertPost.js must be configured with YOUR host. Simply open the file and change the host property to your hostname
   
   ##### Once you have finished configuring the files, open *source_me* and change the configurations as needed.
     - `KUBECONFIG` is the path to your kubeconfig file which contains the details for kubectl to connect to your cluster

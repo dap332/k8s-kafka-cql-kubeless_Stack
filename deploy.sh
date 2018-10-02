@@ -64,9 +64,11 @@ kubectl -n sentiment apply -f $(pwd)/templates/sentiment-svc.yaml
 
 #Cassandra
 
-helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
+#helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
 
-helm install --namespace "cassandra" -n "cassandra" incubator/cassandra --set config.cluster_size=$CASSANDRA_CLUSTER_SIZE
+#helm install --namespace "cassandra" -n "cassandra" incubator/cassandra --set config.cluster_size=$CASSANDRA_CLUSTER_SIZE
+
+helm install --namespace "cassandra" -n "cassandra" ./cassandra
 
 kubectl apply -f $(pwd)/templates/cassandra-job.yaml
 

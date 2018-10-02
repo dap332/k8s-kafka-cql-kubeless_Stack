@@ -9,7 +9,7 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   selector:
-    matchlabels:
+    matchLabels:
       app: {{ template "cassandra.name" . }}
       release: {{ .Release.Name }}
   serviceName: {{ template "cassandra.fullname" . }}

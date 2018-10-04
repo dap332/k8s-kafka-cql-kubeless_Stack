@@ -1,4 +1,7 @@
 const http = require('http');
+
+let ready = false;
+
 const kafka = require('kafka-node'),
     //dns to connect to zookeeper
     //since cluster ip can change if svc goes down we use dns
@@ -8,6 +11,7 @@ const kafka = require('kafka-node'),
     console.log("readying producer...");
     producer.on('ready', () => {
         console.log('kafka conn is ready to push to');
+	ready = true;
     })
 
 
@@ -15,10 +19,6 @@ producer.on('error', (err) => {
     console.log(err);
 //    throw err;
 })
-
-console.log('Client connected');
-
-
 
 let URI = 'sentiment-svc.sentiment.svc.cluster.local';
 let PORT = 80;
@@ -49,17 +49,21 @@ function http_post(data) {
 
 function pushToKafka(payload){
 
-return new Promise((resolve, reject) => {
-        producer.on('error', (err)=> {
-            reject(err);
-        });
+	while(!ready){
+		setTimeout( () => (console.log("waiting for connection... ")), 200);
+	}
+
+	return new Promise((resolve, reject) => {
+		producer.on('error', (err)=> {
+		    reject(err);
+		});
 
 
         producer.send(payload, (err, data) => {
             if(err) reject(err);
             // client.close(() => {
             //console.log('sent msg');
-            resolve('sent msgi\t', payload.messages);
+            resolve('sent msg\t' + payload.messages);
             //});
         });
     });
@@ -78,13 +82,14 @@ module.exports = {
 		
 		title.push(headline);
 		let postData = JSON.stringify({"texts": title});
-		let text = await http_post(postData);i
+		let text = await http_post(postData);
 		postData = JSON.stringify({"headline": headline, "publish_date": publishDate, "score": text[0]});
 		let payload = [{topic: "insert-topic", messages: postData, partition: 0}];
 	
 	//	console.log(headline, text);
 
 		text = await pushToKafka(payload);
+		console.log(text);
 		return text;
 	}
 }

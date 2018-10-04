@@ -81,4 +81,4 @@ kubeless trigger http create create-trigger --function-name createcql --hostname
 
 kubeless trigger http create drop-trigger --function-name dropcql --hostname "drop.$HOST" --namespace cql
 
-
+kubeless trigger kafka create insert-trigger --function-selector function=insert --trigger-topic insert-topic --namespace cql

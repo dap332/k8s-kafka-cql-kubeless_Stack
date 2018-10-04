@@ -26,7 +26,9 @@ kubectl delete function -n sentiment predict
 kubeless --namespace cql trigger http delete create-trigger
 kubeless --namespace cql trigger http delete drop-trigger
 
-kubeless --namespace sentiment trigger kafka delete predict-trigger
+kubectl -n sentiment delete kafkatrigger predict-trigger
+
+kubectl -n cql delete kafkatrigger insert-trigger
 
 kubectl delete -f https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless-$kubeless_version.yaml
 

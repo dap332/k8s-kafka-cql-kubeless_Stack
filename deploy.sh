@@ -52,7 +52,7 @@ kubeless function deploy dropcql --runtime nodejs8 --handler cql.drop --from-fil
 
 kubeless function deploy insertcql --runtime nodejs8 --handler cql.insert --from-file src/cql.js --dependencies src/package.json --namespace cql
 
-kubeless function deploy predict --runtime nodejs8 --handler sentiment.predict --from-file src/sentiment.js --namespace sentiment
+kubeless function deploy predict --runtime nodejs8 --handler sentiment.predict --from-file src/sentiment.js --namespace sentiment --dependencies src/package.json
 
 echo "deploying resources: Service, Deployment, and Ingress..."
 

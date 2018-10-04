@@ -16,19 +16,19 @@ let createQuery = `CREATE TABLE IF NOT EXISTS messages (
 
 */
 
-let createQuery = `CREATE TABLE IF NOT EXISTS messages (
-			uuid uuid,
-                        time timestamp,
-                        date text,
-                        message text,
-			PRIMARY KEY (date, uuid, time)
-		   );`;
-
+let createQuery = `CREATE TABLE headlines (
+		    uuid uuid,
+		    time timestamp,
+		    message text,
+		    score decimal,
+		    sentiment int,
+		    PRIMARY KEY (uuid, time, message)
+		)`;
 
 let dropTable = `DROP TABLE IF EXISTS messages;`;
 
 
-let insertQuery = `INSERT INTO messages (uuid, time, date, message) VALUES (?, ?, ?, ?);`;
+let insertQuery = `INSERT INTO messages (uuid, time, message, score, sentiment) VALUES (?, ?, ?, ?, ?);`;
 
 
 let client = null;
@@ -70,10 +70,14 @@ module.exports = {
 
 	insert: (event, context) => {
 		init();
+		let data = JSON.parse(JSON.stringify(evet.data.messages));
 		console.log('inserting...');
-		let date = event.data.split(',')[0];
-		let msg = event.data.split(',')[1];
-		let params = [Uuid.random(), new Date().toISOString(), date, msg];
+		
+
+		let msg = data.headline;
+		let score = data.score;
+		
+		let params = [Uuid.random(), new Date().toISOString(), msg, score, Math.ceil(0.5 - score)];
 		client.execute(insertQuery, params, {prepare: true}, (err) => {
 			if (err) throw err;
 			console.log('inserted message!');

@@ -1,3 +1,5 @@
 source_me
 templates/producer-ingress.yaml
 *.swp
+src/node_modules/*
+src/node_modules/**/*

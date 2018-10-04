@@ -6,7 +6,7 @@
   "dependencies": {
     "async": "^2.6.0",
     "cassandra-driver": "^3.4.1",
-    "kafka-node": "^2.5.0"
+    "kafka-node": "^2.6.1"
   },
   "devDependencies": {},
   "scripts": {

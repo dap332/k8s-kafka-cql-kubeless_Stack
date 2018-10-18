@@ -25,10 +25,10 @@ let createQuery = `CREATE TABLE headlines (
 		    PRIMARY KEY (uuid, time, message)
 		)`;
 
-let dropTable = `DROP TABLE IF EXISTS messages;`;
+let dropTable = `DROP TABLE IF EXISTS headlines;`;
 
 
-let insertQuery = `INSERT INTO messages (uuid, time, message, score, sentiment) VALUES (?, ?, ?, ?, ?);`;
+let insertQuery = `INSERT INTO headlines (uuid, time, message, score, sentiment) VALUES (?, ?, ?, ?, ?);`;
 
 
 let client = null;
@@ -70,10 +70,12 @@ module.exports = {
 
 	insert: (event, context) => {
 		init();
-		let data = JSON.parse(JSON.stringify(evet.data.messages));
+	
+		let data = JSON.parse(JSON.stringify(event.data));
+		console.log("data: ", data[0]);
 		console.log('inserting...');
 		
-
+	
 		let msg = data.headline;
 		let score = data.score;
 		

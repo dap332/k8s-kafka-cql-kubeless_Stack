@@ -37,10 +37,10 @@ function http_post(data) {
 
     return new Promise( (resolve, reject) => {
     	const req = http.request(options, (res) => {
-            res.on('data', (d) => (resolve( d.toString('utf-8'))));
+            res.on('data', (d) => ( resolve(JSON.parse(d)) ));
          });
         req.on('error', (e) => reject(e));
-	    req.write(data);
+	req.write(data);
         req.end();
     });
       
@@ -63,7 +63,7 @@ function pushToKafka(payload){
             if(err) reject(err);
             // client.close(() => {
             //console.log('sent msg');
-            resolve('sent msg\t' + payload.messages);
+            resolve('sent msg\t' + payload[0].messages + " typeof: " + typeof(payload[0].messages);
             //});
         });
     });
@@ -82,8 +82,8 @@ module.exports = {
 		
 		title.push(headline);
 		let postData = JSON.stringify({"texts": title});
-		let text = await http_post(postData);
-		postData = JSON.stringify({"headline": headline, "publish_date": publishDate, "score": text[0]});
+		let text = (await http_post(postData))[0];
+		postData = {"headline": headline, "publish_date": publishDate, "score": text};
 		let payload = [{topic: "insert-topic", messages: postData, partition: 0}];
 	
 	//	console.log(headline, text);

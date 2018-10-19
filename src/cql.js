@@ -70,16 +70,16 @@ module.exports = {
 
 	insert: (event, context) => {
 		init();
-	
-		let data = JSON.parse(JSON.stringify(event.data));
-		console.log("data: ", data[0]);
+		console.log('event data: ', event.data);	
+		let data = event.data;
+		console.log("headline: ", data.headline );
 		console.log('inserting...');
 		
 	
 		let msg = data.headline;
 		let score = data.score;
 		
-		let params = [Uuid.random(), new Date().toISOString(), msg, score, Math.ceil(0.5 - score)];
+		let params = [Uuid.random(), new Date().toISOString(), msg, score, Math.ceil( score - 0.5)];
 		client.execute(insertQuery, params, {prepare: true}, (err) => {
 			if (err) throw err;
 			console.log('inserted message!');

@@ -63,7 +63,7 @@ function pushToKafka(payload){
             if(err) reject(err);
             // client.close(() => {
             //console.log('sent msg');
-            resolve('sent msg\t' + payload[0].messages + " typeof: " + typeof(payload[0].messages);
+            resolve('sent msg\t' + payload[0].messages + " typeof: " + typeof(JSON.parse(payload[0].messages)));
             //});
         });
     });
@@ -77,14 +77,14 @@ module.exports = {
 		console.log('executing....');
 		let title = [];
 		let msg = event.data.split(',');
-		let headline = msg[1];
-		let publishDate = msg[0];
+		let headline = msg[1].toString();
+		let publishDate = msg[0].toString();
 		
 		title.push(headline);
 		let postData = JSON.stringify({"texts": title});
-		let text = (await http_post(postData))[0];
-		postData = {"headline": headline, "publish_date": publishDate, "score": text};
-		let payload = [{topic: "insert-topic", messages: postData, partition: 0}];
+		let text = (await http_post(postData))[0].toString();
+		postData = {headline: headline, publish_date: publishDate, score: text};
+		let payload = [{topic: "insert-topic", messages: JSON.stringify(postData), partition: 0}];
 	
 	//	console.log(headline, text);
 

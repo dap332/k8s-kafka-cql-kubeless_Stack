@@ -62,8 +62,7 @@ function pushToKafka(payload){
         producer.send(payload, (err, data) => {
             if(err) reject(err);
             // client.close(() => {
-            //console.log('sent msg');
-            resolve('sent msg\t' + payload[0].messages + " typeof: " + typeof(JSON.parse(payload[0].messages)));
+            resolve('sent msg\t' + payload[0].messages);
             //});
         });
     });
@@ -86,7 +85,6 @@ module.exports = {
 		postData = {headline: headline, publish_date: publishDate, score: text};
 		let payload = [{topic: "insert-topic", messages: JSON.stringify(postData), partition: 0}];
 	
-	//	console.log(headline, text);
 
 		text = await pushToKafka(payload);
 		console.log(text);

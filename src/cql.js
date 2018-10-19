@@ -70,12 +70,8 @@ module.exports = {
 
 	insert: (event, context) => {
 		init();
-		console.log('event data: ', event.data);	
 		let data = event.data;
 		console.log("headline: ", data.headline );
-		console.log('inserting...');
-		
-	
 		let msg = data.headline;
 		let score = data.score;
 		

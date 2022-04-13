@@ -4,7 +4,7 @@
   "description": "Load lots pf news titles into a Cassandra db",
   "main": "insert.js",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.2.2",
     "cassandra-driver": "^3.4.1",
     "kafka-node": "^2.6.1"
   },
